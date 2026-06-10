@@ -19,10 +19,13 @@ Sou formado em Jogos Digitais e atualmente curso Desenvolvimento Full Stack. Ten
 
 ### 2. Cafeteria
 > Uma página com temática de cafeteria, destacando frases criativas sobre o amor por café.
+> Buscar itens: Você me passa o cardápio e eu procuro os produtos desejados.
+> Simular o carrinho: Eu "adiciono" os itens selecionados em uma lista de compras simulada.
 
 
 ### 3. Homem Morderno
 > Um layout de um barbearia.
+> Interagir como Agendamento Bem-sucedido 
 
 
 ## 🚀 Deploy 
