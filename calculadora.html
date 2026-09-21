@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css">
+
+    <title>Calculadora</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #000;
+            margin: 0;
+        }
+
+        .Calculator {
+            background-color: #181817;
+            padding: 20px;
+            border-radius: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0 .5);
+            text-align: center;
+            width: 320px;
+        }
+
+        .display {
+            background-color: #5b59599e;
+            color: aliceblue;
+            font-size: 20px;
+            padding: 10px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            min-height: 50px;
+            text-align: right;
+        }
+
+        .buttons {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 10px;
+
+        }
+
+        button {
+            border: none;
+            border-radius: 50%;
+            padding: 20px 15px;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        .button.orange {
+            background-color: #f5b220;
+            color: #e9e0e0;
+        }
+
+        .button.dark-gray {
+            background-color: #f5f5f3;
+            color: #0f0f0f;
+        }
+
+        .button-wide {
+            grid-column: span 1;
+            border-radius: 50px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="Calculator">
+        <div class="display" id="display"></div>
+        <div class="buttons">
+            <button class="button-ligth-gray" onclick="deleteLast()">⌫</button>
+            <button class="button ligth-gray" onclick="clearDisplay()">AC</button>
+            <button class="button-ligth-gray" onclick="appendOperator('%')">%</button>
+            <button class="button orange" onclick="appendOperator('/')">÷</button>
+            <button class="button dark-gray" onclick="appendNumber('7')">𝟕</button>
+            <button class="button dark-gray" onclick="appendNumber('8')">𝟖</button>
+            <button class="button dark-gray" onclick="appendNumber('9')">𝟗</button>
+            <button class="button orange" onclick="appendOperator('*')">×</button>
+            <button class="button dark-gray" onclick="appendNumber('4')">𝟒</button>
+            <button class="button dark-gray" onclick="appendNumber('5')">𝟓</button>
+            <button class="button dark-gray" onclick="appendNumber('6')">𝟔</button>
+            <button class="button orange" onclick="appendOperator('-')">-</button>
+            <button class="button dark-gray" onclick="appendNumber('1')">𝟏</button>
+            <button class="button dark-gray" onclick="appendNumber('2')">𝟐</button>
+            <button class="button dark-gray" onclick="appendNumber('3')">𝟑</button>
+            <button class="button orange" onclick="appendOperator('+')">+</button>
+            <button class="button ligth gray" onclick="appendOperator()">+/-</button>
+            <button class="button dark-gray button-wide" onclick="appendNumber('0')">0</button>
+            <button class="button-ligth-gray" onclick="appendOperator('.')">,</button>
+            <button class="button orange" onclick="calculate()">=</button>
+        </div>
+    </div>
+    <script>
+        let display = document.getElementById("display");
+        let currentInput = ""
+        let currentOperator = ""
+
+        function appendNumber(value) {
+            currentInput += value;
+            display.textContent = currentInput;
+        }
+        function appendOperator(operator) {
+            if (currentInput === "" && operator !== "-") return;
+            currentInput += operator;
+            display.textContent = currentInput;
+        }
+
+        function calculate() {
+            try {
+                let result = eval(currentInput)
+                if (!Number.isInteger(result)) {
+                    result = result.toFixed(2)
+                }
+                currentInput = result
+                display.textContent = currentInput
+            } catch (error) {
+                display.textContent = "Erro"
+                currentInput = ""
+            }
+        }
+
+        function clearDisplay() {
+            currentInput = ""
+            display.textContent = currentInput;
+        }
+
+        function deleteLast() {
+            const display = document.getElementById('display');
+
+            display.textContent = display.textContent.slice(0, -1);
+        }
+    </script>
+
+</body>
+
+</html>

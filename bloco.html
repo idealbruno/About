@@ -1,0 +1,142 @@
+<!doctype html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Playwrite+DE+SAS:wght@100..400&display=swap"
+        rel="stylesheet" />
+    <link rel="stylesheet" href="style.css" />
+    <title>Lista de Tarefas</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+
+        }
+
+        body {
+            background-color: #050115;
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            min-height: 100vh;
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .container {
+            background: #ffffff;
+            padding: 45px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .container h1 {
+
+            color: #282929da;
+            margin-bottom: 20px;
+        }
+
+        input {
+            padding: 10px;
+            width: 200px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        li {
+            display: flex;
+            justify-content: space-between;
+            padding: 8px 0;
+            color: #011e2d;
+            font-size: 18px;
+            font-family: Georgia, 'Times New Roman', Times, serif, Cochin, Georgia, Times, 'Times New Roman', serif;
+        }
+
+        done {
+            text-decoration: line-through;
+            color: gray;
+        }
+
+        button {
+            padding: 10px 15px;
+            background-color: #050115;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            opacity: 0.8;
+        }
+
+        button.delete {
+            background-color: #ff4d4d;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>📋 Lista de Tarefas</h1>
+        <input id="task-input" type="text" placeholder="Digite uma nova tarefa..." />
+        <button onclick="addTask()">Adicionar</button>
+        <ul id="task-list"></ul>
+    </div>
+
+    <script>
+        function addTask() {
+            const input = document.getElementById("task-input");
+            const taskText = input.value.trim();
+            if (taskText === "") return;
+
+            const li = document.createElement("li");
+            li.innerHTML = `
+    <span onclick="toggleDone(this)">${taskText}</span>
+    <button onclick="removeTask(this)">🗑️</button>
+  `;
+
+            document.getElementById("task-list").appendChild(li);
+            input.value = "";
+            saveTasks();
+        }
+
+        function toggleDone(element) {
+            element.classList.toggle("done");
+            saveTasks();
+        }
+
+        function removeTask(button) {
+            button.parentElement.remove();
+            saveTasks();
+        }
+
+        function saveTasks() {
+            const list = document.getElementById("task-list").innerHTML;
+            localStorage.setItem("tasks", list);
+        }
+
+        function loadTasks() {
+            const saved = localStorage.getItem("tasks");
+            if (saved) {
+                document.getElementById("task-list").innerHTML = saved;
+            }
+        }
+
+        loadTasks();
+    </script>
+</body>
+
+</html>
